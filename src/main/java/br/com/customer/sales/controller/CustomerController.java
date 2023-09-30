@@ -1,6 +1,7 @@
 package br.com.customer.sales.controller;
 
 import br.com.customer.sales.dtos.BikeDTO;
+import br.com.customer.sales.dtos.BikeResponseDTO;
 import br.com.customer.sales.dtos.CustomerDTO;
 import br.com.customer.sales.dtos.StandardResponse;
 import br.com.customer.sales.service.CustomerService;
@@ -60,8 +61,10 @@ public class CustomerController {
     }
 
     @PutMapping("/editBike/{bikeId}")
-    public ResponseEntity<StandardResponse> editBike(@PathVariable ("bikeId") String bikeId) {
-        var editedBike = customerService.editBike(bikeId);
+    public ResponseEntity<BikeResponseDTO> editBike(@PathVariable ("bikeId") String bikeId,
+                                                    @RequestBody BikeDTO bikeDTO) {
+        bikeDTO.setId(bikeId);
+        var editedBike = customerService.editBike(bikeDTO);
 
         return ResponseEntity.ok(editedBike);
     }

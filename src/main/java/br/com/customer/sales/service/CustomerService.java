@@ -97,13 +97,13 @@ public class CustomerService {
         return restTemplateResult.getBody();
     }
 
-    public StandardResponse editBike(String bikeId) {
+    public BikeResponseDTO editBike(BikeDTO bikeDTO) {
         var header = new HttpHeaders();
         header.setContentType(MediaType.APPLICATION_JSON);
-        var entity = new HttpEntity<StandardResponse>(header);
+        var entity = new HttpEntity<>(bikeDTO, header);
         var restTemplateResult = restTemplate.exchange(
-                "http://localhost:8080/V1/Bike/change/" + bikeId ,
-                HttpMethod.PUT, entity, StandardResponse.class
+                "http://localhost:8080/V1/Bike/change",
+                HttpMethod.PUT, entity, BikeResponseDTO.class
         );
         return restTemplateResult.getBody();
     }
@@ -111,7 +111,7 @@ public class CustomerService {
     public StandardResponse deleteBike(String bikeId) {
         var header = new HttpHeaders();
         header.setContentType(MediaType.APPLICATION_JSON);
-        var entity = new HttpEntity<StandardResponse>(header);
+        var entity = new HttpEntity<>(header);
         var restTemplateResult = restTemplate.exchange(
                 "http://localhost:8080/V1/Bike/delete/" + bikeId, HttpMethod.DELETE, entity,
                 StandardResponse.class
